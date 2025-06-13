@@ -1,0 +1,157 @@
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Screen GUI
+local gui = Instance.new("ScreenGui", playerGui)
+gui.Name = "c00lzgui_v2_2"
+gui.ResetOnSpawn = false
+
+-- MAIN FRAME (resized to fit 9 buttons and title)
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 460, 0, 200)
+frame.Position = UDim2.new(0.5, -230, 0.5, -100)
+frame.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red background
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+
+-- TITLE
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1, 0, 0, 25)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "c00lzgui v2.2 by c00lzianese (made by chatgpt)"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 16
+
+-- BUTTON CREATION FUNCTION
+local function createButton(text, position, callback)
+	local btn = Instance.new("TextButton", frame)
+	btn.Size = UDim2.new(0, 130, 0, 30)
+	btn.Position = UDim2.new(0, 15 + ((position - 1) % 3) * 150, 0, 35 + math.floor((position - 1) / 3) * 45)
+	btn.Text = text
+	btn.BackgroundColor3 = Color3.fromRGB(40, 0, 0)
+	btn.TextColor3 = Color3.new(1, 1, 1)
+	btn.Font = Enum.Font.SourceSansBold
+	btn.TextSize = 14
+	btn.MouseButton1Click:Connect(callback)
+end
+
+-- BUTTON FUNCTIONS (same as before)...
+
+-- Button 1: Skybox
+createButton("Skybox", 1, function()
+	local sky = Instance.new("Sky")
+	sky.Parent = game.Lighting
+	local assetID = "rbxassetid://78424249417814"
+	sky.SkyboxBk = assetID
+	sky.SkyboxDn = assetID
+	sky.SkyboxFt = assetID
+	sky.SkyboxLf = assetID
+	sky.SkyboxRt = assetID
+	sky.SkyboxUp = assetID
+end)
+
+-- Button 2: Decal Spam
+createButton("Decal Spam", 2, function()
+	local assetID = "rbxassetid://78424249417814"
+	for _, obj in ipairs(game.Workspace:GetDescendants()) do
+		if obj:IsA("Part") or obj:IsA("MeshPart") or obj:IsA("UnionOperation") then
+			for _, child in ipairs(obj:GetChildren()) do
+				if child:IsA("Decal") then child:Destroy() end
+			end
+			local decal = Instance.new("Decal")
+			decal.Texture = assetID
+			decal.Face = Enum.NormalId.Front
+			decal.Parent = obj
+		end
+	end
+end)
+
+-- Button 3: Message
+createButton("Message", 3, function()
+	local msg = Instance.new("Message", workspace)
+	local messages = {
+		"c00lzianese was here",
+		"c00lzianese is gonna hack this server",
+		"I hope this won't get banned, cause why not",
+		"...",
+		"Hehehe, let's play tag :>"
+	}
+	coroutine.wrap(function()
+		while true do
+			for _, text in ipairs(messages) do
+				msg.Text = text
+				task.wait(5)
+				msg:Destroy()
+				task.wait(10)
+				msg = Instance.new("Message", workspace)
+			end
+		end
+	end)()
+end)
+
+-- Button 4: Hint 1
+createButton("Hint", 4, function()
+	local yourHint = Instance.new("Hint", game.Workspace)
+	yourHint.Text = "hacked by c00lzianese"
+end)
+
+-- Button 5: Music 1
+createButton("Music", 5, function()
+	local sound = Instance.new("Sound")
+	sound.Parent = game.Workspace
+	sound.Looped = false
+	sound.SoundId = "rbxassetid://1839246711"
+	sound:Play()
+end)
+
+-- Button 6: 666 (improved)
+createButton("666", 6, function()
+	for _, part in ipairs(workspace:GetDescendants()) do
+		if part:IsA("BasePart") then
+			local fire = Instance.new("Fire")
+			fire.Size = 15
+			fire.Heat = 10
+			fire.Color = Color3.fromRGB(255, 120, 0)
+			fire.SecondaryColor = Color3.fromRGB(255, 170, 0)
+			fire.Parent = part
+
+			part.Color = Color3.new(0.02, 0.02, 0.02)
+			part.Material = Enum.Material.Neon
+
+			local highlight = Instance.new("Highlight", part)
+			highlight.FillTransparency = 1
+			highlight.OutlineColor = Color3.fromRGB(255, 0, 0)
+			highlight.OutlineTransparency = 0
+		end
+	end
+end)
+
+-- Button 7: Music 2
+createButton("Music 2", 7, function()
+	local Sound = Instance.new("Sound")
+	Sound.SoundId = "rbxassetid://127653283576622"
+	Sound.PlaybackSpeed = 0.75
+	Sound.Looped = true
+	Sound.Volume = 1
+	Sound.Parent = game.Workspace
+	Sound:Play()
+end)
+
+-- Button 8: Music 3
+createButton("Music 3", 8, function()
+	local sound = Instance.new("Sound")
+	sound.SoundId = "rbxassetid://95156028272944"
+	sound.PlaybackSpeed = 0.2
+	sound.Looped = true
+	sound.Parent = game.Workspace
+	sound:Play()
+end)
+
+-- Button 9: Hint 2
+createButton("Hint 2", 9, function()
+	local yourHint = Instance.new("Hint", game.Workspace)
+	yourHint.Text = "fix your game bruh, remove the backdoor"
+end)
